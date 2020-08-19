@@ -44,6 +44,10 @@ int main() {
       portal2.TeleportBall(ball);
     }
 
+    if (player.BallHasCollided(ball)) {
+      ball.Bounce(Ball::Bounce::Vertical);
+    }
+
     player.Update();
     ball.Update();
 
