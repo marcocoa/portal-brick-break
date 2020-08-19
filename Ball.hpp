@@ -23,13 +23,27 @@ class Ball {
     m_velocity = sf::Vector2f(speed_x, speed_y);
   }
 
+  enum class Bounce { Vertical, Horizontal };
+  void Bounce(Bounce bounce_dir) {
+    switch (bounce_dir) {
+      case Bounce::Vertical:
+        m_velocity.y *= -1;
+        break;
+      case Bounce::Horizontal:
+        m_velocity.x *= -1;
+        break;
+      default:
+        break;
+    }
+  }
+
   void Update() {
     m_circle.move(m_velocity);
     if (LeftSide() < 0 || RightSide() > GlobalConstants::window_width) {
-      m_velocity.x *= -1;
+      Bounce(Bounce::Horizontal);
     }
     if (TopSide() < 0 || BottomSide() > GlobalConstants::window_height) {
-      m_velocity.y *= -1;
+      Bounce(Bounce::Vertical);
     }
   }
 
