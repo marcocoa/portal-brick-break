@@ -28,6 +28,16 @@ int main() {
   while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
     window.clear(sf::Color::White);
 
+    auto const mouse_pos = sf::Mouse::getPosition(window);
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+      // Having to cast these to float is a bit annoying :I
+      portal1.MoveTo(
+          {static_cast<float>(mouse_pos.x), static_cast<float>(mouse_pos.y)});
+    } else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
+      portal2.MoveTo(
+          {static_cast<float>(mouse_pos.x), static_cast<float>(mouse_pos.y)});
+    }
+
     if (portal1.BallHasEntered(ball)) {
       portal1.TeleportBall(ball);
     } else if (portal2.BallHasEntered(ball)) {
