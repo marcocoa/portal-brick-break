@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 
 #include "GlobalConstants.hpp"
 #include "Pos.hpp"
@@ -10,6 +9,7 @@ class Ball {
  private:
   sf::CircleShape m_circle;
   sf::Vector2f m_velocity;
+  bool m_freeze = false;
 
  public:
   Ball(Pos pos) {
@@ -38,6 +38,8 @@ class Ball {
   }
 
   void Update() {
+    if (m_freeze) return;
+
     m_circle.move(m_velocity);
     if (LeftSide() < 0 || RightSide() > GlobalConstants::window_width) {
       Bounce(Bounce::Horizontal);
@@ -54,6 +56,8 @@ class Ball {
   float TopSide() const { return YCoord() - m_circle.getRadius(); }
   float BottomSide() const { return YCoord() + m_circle.getRadius(); }
   void MoveTo(Pos p) { m_circle.setPosition({p.x, p.y}); }
+  void Freeze() { m_freeze = true; }
+  void Unfreeze() { m_freeze = false; }
 
   sf::CircleShape const& DrawableObject() { return m_circle; }
 };
