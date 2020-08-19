@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "GlobalConstants.hpp"
 #include "Pos.hpp"
 
 class Ball {
@@ -22,13 +23,24 @@ class Ball {
     m_velocity = sf::Vector2f(speed_x, speed_y);
   }
 
-  void Update() { m_circle.move(m_velocity); }
-  float XCoord() { return m_circle.getPosition().x; }
-  float YCoord() { return m_circle.getPosition().y; }
-  float LeftSide() { return XCoord() - m_circle.getRadius(); }
-  float RightSide() { return XCoord() + m_circle.getRadius(); }
-  float TopSide() { return YCoord() - m_circle.getRadius(); }
-  float BottomSide() { return YCoord() + m_circle.getRadius(); }
+  void Update() {
+    m_circle.move(m_velocity);
+    if (LeftSide() < 0 || RightSide() > GlobalConstants::window_width) {
+      m_velocity.x *= -1;
+    }
+    if (TopSide() < 0 || BottomSide() > GlobalConstants::window_height) {
+      m_velocity.y *= -1;
+    }
+  }
+
+  float XCoord() const { return m_circle.getPosition().x; }
+  float YCoord() const { return m_circle.getPosition().y; }
+  float LeftSide() const { return XCoord() - m_circle.getRadius(); }
+  float RightSide() const { return XCoord() + m_circle.getRadius(); }
+  float TopSide() const { return YCoord() - m_circle.getRadius(); }
+  float BottomSide() const { return YCoord() + m_circle.getRadius(); }
+  void MoveTo(Pos p) { m_circle.setPosition({p.x, p.y}); }
+
   sf::CircleShape const& DrawableObject() { return m_circle; }
 };
 
