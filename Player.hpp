@@ -31,9 +31,12 @@ class Player {
 
   void Update() {
     auto constexpr speed_x = 15.0f;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && LeftSide() > 0) {
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
+         sf::Keyboard::isKeyPressed(sf::Keyboard::A)) &&
+        LeftSide() > 0) {
       m_velocity.x = -speed_x;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
+    } else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
+                sf::Keyboard::isKeyPressed(sf::Keyboard::D)) &&
                RightSide() < GlobalConstants::window_width) {
       m_velocity.x = speed_x;
     } else {
