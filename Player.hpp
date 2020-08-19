@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Ball.hpp"
 #include "GlobalConstants.hpp"
 #include "Pos.hpp"
 
@@ -39,6 +40,11 @@ class Player {
       m_velocity.x = 0;
     }
     m_rect.move(m_velocity);
+  }
+
+  bool BallHasCollided(Ball const& ball) {
+    return ball.TopSide() >= TopSide() && ball.LeftSide() >= LeftSide() &&
+           ball.RightSide() <= RightSide();
   }
 
   sf::RectangleShape const& DrawableObject() const { return m_rect; }
