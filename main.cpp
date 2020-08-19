@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <algorithm>
+#include <thread>
 
 #include "Ball.hpp"
 #include "GlobalConstants.hpp"
@@ -25,8 +26,13 @@ int main() {
   portal1.SetExit(&portal2);
   portal2.SetExit(&portal1);
 
+  ball.Freeze();
   while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
     window.clear(sf::Color::White);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+      ball.Unfreeze();
+    }
 
     auto const mouse_pos = sf::Mouse::getPosition(window);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
