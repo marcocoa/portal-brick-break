@@ -61,7 +61,8 @@ int main() {
     window.draw(ball.DrawableObject());
     window.draw(portal1.DrawableObject());
     window.draw(portal2.DrawableObject());
-
     window.display();
+
+    if (ball.BottomSide() >= GlobalConstants::window_height) break;
   }
 }
