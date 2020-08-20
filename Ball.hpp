@@ -14,7 +14,7 @@ class Ball {
  public:
   Ball(Pos pos) {
     auto constexpr radius = 8.0f;
-    auto constexpr speed_x = 10, speed_y = 10;
+    auto constexpr speed_x = 8, speed_y = 8;
 
     m_circle.setPosition(pos.x, pos.y);
     m_circle.setRadius(radius);
